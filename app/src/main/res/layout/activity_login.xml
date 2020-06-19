@@ -2,36 +2,53 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
         <variable
             name="viewmodel"
             type="com.example.mvvmsample.ui.auth.AuthViewModel" />
     </data>
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        tools:context=".ui.auth.LoginActivity">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/ed_Name"
-            android:hint="Name"
-            android:text="@={viewmodel.email}"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/ed_password"
-            android:hint="Password"
-            android:text="@={viewmodel.password}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/btnLogin"
-            android:text="Login"
-            android:onClick="@{viewmodel.onLoginButtonClick}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                tools:context=".ui.auth.LoginActivity">
+
+                <EditText
+                    android:id="@+id/ed_Name"
+                    android:hint="User Name"
+                    android:text="@={viewmodel.email}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/ed_password"
+                    android:hint="Password"
+                    android:text="@={viewmodel.password}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:text="Login"
+                    android:onClick="@{viewmodel.onLoginButtonClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

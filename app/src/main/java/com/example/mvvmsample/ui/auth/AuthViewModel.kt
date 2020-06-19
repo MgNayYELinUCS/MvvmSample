@@ -2,6 +2,9 @@ package com.example.mvvmsample.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.example.mvvmsample.data.repositories.UserRepositoty
+import com.example.mvvmsample.util.ApiException
+import com.example.mvvmsample.util.Coroutine
 
 class AuthViewModel :ViewModel() {
     var email:String? = null
@@ -14,6 +17,22 @@ class AuthViewModel :ViewModel() {
             authListener?.onFailure("Invalid email or password")
             return
         }
-        authListener?.onSuccess()
+      /*  val loginResponse = UserRepositoty().userLOgin(email!!,password!!)
+        authListener?.onSuccess(loginResponse)*/
+        Coroutine.main {
+            try {
+                val authResponse = UserRepositoty().userLOgin(email!!,password!!)
+                authResponse.user?.let {
+                    authListener?.onSuccess(it)
+                    return@main
+                }
+                authListener?.onFailure(authResponse.message!!)
+
+            }catch (e:ApiException){
+                    authListener?.onFailure(e.message.toString())
+            }
+
+
+        }
     }
 }
